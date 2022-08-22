@@ -1,0 +1,57 @@
+:root {
+  --white: #FFFFFF;
+  --background: #FAFAFA;
+  --base-card: #F3F2F2;
+  --base-input: #EDEDED;
+  --base-button: #E6E5E5;
+  --base-hover: #D7D5D5;
+  --base-label: #8D8686;
+  --base-text: #574F4D;
+  --base-subtitle: #403937;
+  --base-title: #272221;
+
+  --yellow-light: #F1E9C9;
+  --yellow: #DBAC2C;
+  --yellow-dark: #C47F17;
+
+  --purple-light: #EBE5F9;
+  --purple: #8047F8;
+  --purple-dark: #4B2995;
+}
+
+:focus {
+  outline: transparent;
+  box-shadow: 0 0 0 2px var(--purple-dark);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+body {
+  background: var(--background);
+  color: var(--base-text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 130%;
+}
+
+body, input, textarea, button {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Baloo 2', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--base-title);
+}
+
+button {
+  background: none;
+  border: 0;
+}
