@@ -5,7 +5,16 @@ import './CoffeeCard.scss'
 import CoffeeImg from '../../assets/Image.png'
 import { useState } from "react";
 
-export function CoffeeCard() {
+interface ICoffeeProps {
+  url: string;
+  tags: string[];
+  title: string;
+  description: string;
+  price: number;
+  amount: number;
+}
+
+export function CoffeeCard( coffee : ICoffeeProps) {
   const [counter, setCounter] = useState(0)
 
   function handleAddCoffee() {
@@ -20,15 +29,16 @@ export function CoffeeCard() {
 
   return (
     <div className="coffeeCard">
-      <img src={CoffeeImg} alt="" />
+      <img src={coffee.url} alt="" />
       <div className="tag">
-        {/* Map com as tags */}
-        <h3>Tradicional</h3>
+        { coffee.tags.map(tag => {
+          return <h3>{tag}</h3> 
+        })}
       </div>
-      <h1>Expresso Tradicional</h1>
-      <p>O tradicional café feito com água quente e grãos moídos</p>
+      <h1>{coffee.title}</h1>
+      <p>{coffee.description}</p>
       <div className="buy">
-        <h2>R$<span>9,90</span></h2>
+        <h2>R$<span>{coffee.price}</span></h2>
         <div className="actions">
           <div className="counter">
             <button onClick={() => handleSubCoffee()}>

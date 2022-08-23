@@ -5,6 +5,7 @@ import CoffeeImg from './assets/Imagem.png'
 import './App.scss';
 import { Coffee, Package, ShoppingCart, Timer } from "phosphor-react";
 import { CoffeeCard } from "./components/CoffeeCard";
+import { coffees } from "./context/useCart";
 
 function App() {
 
@@ -53,10 +54,10 @@ function App() {
         <div className="coffeeList">
           <h3>Nossos cafés</h3>
           <div className="list">
-            <CoffeeCard />
-            <CoffeeCard />
-            <CoffeeCard />
-            <CoffeeCard />
+            { coffees.map(coffee => { 
+              return <CoffeeCard coffee={coffee}/>
+            })
+            }
           </div>
         </div>
       </main>
