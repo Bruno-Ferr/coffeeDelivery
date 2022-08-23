@@ -2,27 +2,35 @@ import { Minus, Plus, ShoppingCart } from "phosphor-react";
 
 import './CoffeeCard.scss'
 
-import CoffeeImg from '../../assets/Image.png'
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { CartContext } from "../../context/useCart";
 
 interface ICoffeeProps {
+  id: number;
   url: string;
   tags: string[];
   title: string;
   description: string;
   price: number;
-  amount: number;
+  stock: number;
 }
 
-export function CoffeeCard( coffee : ICoffeeProps) {
-  const [counter, setCounter] = useState(0)
+interface ICoffeeCardProps {
+  coffee: ICoffeeProps
+}
 
-  function handleAddCoffee() {
+export function CoffeeCard( { coffee }: ICoffeeCardProps) {
+  const [counter, setCounter] = useState(0)
+  const { handleAddToCart, handleRemoveFromCart} = useContext(CartContext)
+
+  function handleAddCoffee(id: number) {
+    handleAddToCart(id)
     setCounter(counter + 1)
   }
 
-  function handleSubCoffee() {
+  function handleSubCoffee(id: number) {
     if(counter !== 0) {
+      handleRemoveFromCart(id)
       setCounter(counter - 1)
     }
   }
@@ -32,7 +40,7 @@ export function CoffeeCard( coffee : ICoffeeProps) {
       <img src={coffee.url} alt="" />
       <div className="tag">
         { coffee.tags.map(tag => {
-          return <h3>{tag}</h3> 
+          return <h3 key={tag}>{tag.toUpperCase()}</h3> 
         })}
       </div>
       <h1>{coffee.title}</h1>
@@ -41,11 +49,11 @@ export function CoffeeCard( coffee : ICoffeeProps) {
         <h2>R$<span>{coffee.price}</span></h2>
         <div className="actions">
           <div className="counter">
-            <button onClick={() => handleSubCoffee()}>
+            <button onClick={() => handleSubCoffee(coffee.id)}>
               <Minus size={14} />
             </button>
             <span>{counter}</span>
-            <button onClick={() => handleAddCoffee()}>
+            <button onClick={() => handleAddCoffee(coffee.id)}>
               <Plus size={14} />
             </button>
           </div>

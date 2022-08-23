@@ -5,9 +5,17 @@ import CoffeeImg from './assets/Imagem.png'
 import './App.scss';
 import { Coffee, Package, ShoppingCart, Timer } from "phosphor-react";
 import { CoffeeCard } from "./components/CoffeeCard";
-import { coffees } from "./context/useCart";
+import { CartContext, CartContextProvider, coffees } from "./context/useCart";
+import { useContext, useEffect } from "react";
 
 function App() {
+  const { cart, updateTotalPrice, totalPrice} = useContext(CartContext)
+
+  useEffect(() => {
+    if(cart !== undefined ) {
+      updateTotalPrice()
+    }
+  }, [cart])
 
   return (
     <>
@@ -25,7 +33,7 @@ function App() {
                   <div className="icon" style={{background: '#C47F17'}}>
                     <ShoppingCart size={16} weight="fill" color="#FFF" />
                   </div>
-                  <p>Compra simples e segura</p>
+                  <p>Compra simples e segura{totalPrice}</p>
                 </div>
                 <div className="item">
                   <div className="icon" style={{background: '#574F4D'}}>
@@ -54,8 +62,8 @@ function App() {
         <div className="coffeeList">
           <h3>Nossos cafés</h3>
           <div className="list">
-            { coffees.map(coffee => { 
-              return <CoffeeCard coffee={coffee}/>
+          { coffees.map(coffee => { 
+              return <CoffeeCard coffee={coffee} key={coffee.id} />
             })
             }
           </div>
