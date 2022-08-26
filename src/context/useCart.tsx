@@ -179,7 +179,21 @@ export const coffees:CoffeesProps = [
 export const CartContext = createContext({} as ICartContext)
 
 export function CartContextProvider({ children }: ICartContextProvider) {
-  const [cart, setCart] = useState<CartProps>([])
+  const [cart, setCart] = useState<CartProps>([{
+    id: 1,
+    url: coffee,
+    title: "Expresso Tradicional",
+    price: 5.91,
+    amount: 1,
+  },
+  {
+    id: 2,
+    url: ImageCoffee1,
+    title: "Latte",
+    price: 2.92,
+    amount: 3,
+  },
+])
   const [totalPrice, setTotalPrice] = useState(0)
 
   function handleAddToCart(productId: number) {
