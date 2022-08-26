@@ -36,6 +36,7 @@ type CartProps = {
 interface ICartContext {
   cart: CartProps,
   totalPrice: number,
+  coffees: CoffeesProps,
   handleAddToCart: (productId: number) => void;
   handleRemoveFromCart: (productId: number) => void;
   updateTotalPrice: () => void;
@@ -240,7 +241,7 @@ export function CartContextProvider({ children }: ICartContextProvider) {
   }
 
   return (
-    <CartContext.Provider value={{ cart, totalPrice, handleAddToCart, handleRemoveFromCart, setTotalPrice, updateTotalPrice }}>
+    <CartContext.Provider value={{ coffees, cart, totalPrice, handleAddToCart, handleRemoveFromCart, setTotalPrice, updateTotalPrice }}>
       {children}
     </CartContext.Provider>
   )

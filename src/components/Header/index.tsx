@@ -1,5 +1,5 @@
 import { MapPin, ShoppingCart } from "phosphor-react";
-import './header.scss'
+import './styles.scss'
 
 import logo  from '../../assets/Logo.png'
 

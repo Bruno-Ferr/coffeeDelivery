@@ -1,6 +1,6 @@
 import { Minus, Plus, ShoppingCart } from "phosphor-react";
 
-import './CoffeeCard.scss'
+import './styles.scss'
 
 import { useContext, useState } from "react";
 import { CartContext } from "../../context/useCart";
@@ -21,11 +21,15 @@ interface ICoffeeCardProps {
 
 export function CoffeeCard( { coffee }: ICoffeeCardProps) {
   const [counter, setCounter] = useState(0)
-  const { handleAddToCart, handleRemoveFromCart} = useContext(CartContext)
+  const { handleAddToCart, handleRemoveFromCart, coffees} = useContext(CartContext)
 
   function handleAddCoffee(id: number) {
     handleAddToCart(id)
-    setCounter(counter + 1)
+    
+    const [ coffee ] = coffees.filter(product => product.id === id)
+    if (coffee.stock > counter) {
+      setCounter(counter + 1)
+    }
   }
 
   function handleSubCoffee(id: number) {
