@@ -1,0 +1,56 @@
+.success-page {
+  width: 70rem;
+  margin: 80px  auto;
+
+  h2 {
+    font-size: 32px;
+    color: var(--yellow-dark);
+  }
+
+  h3 {
+    font-size: 20px;
+    font-family: 'Roboto';
+    font-weight: 400;
+    color: var(--base-subtitle);
+    margin: 10px 0px 40px 0px;
+  }
+}
+
+.success-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  .success-infos {
+    width: 526px;
+    padding: 40px;
+    //border-image: linear-gradient(to right, #DBAC2C, #8047F8) 1;   Border-radius não funciona
+    background: 
+    linear-gradient(var(--background), var(--background)) padding-box,
+    linear-gradient(to right, #DBAC2C, #8047F8) border-box;
+    border-radius: 6px 36px 6px 36px;
+    border: 1px solid transparent;
+
+    .success-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 32px;
+
+      .success-info-icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-right: 12px;
+
+        border-radius: 50px;
+      }
+      
+      .success-info-title {
+        max-width: 310px;
+      }
+    }
+  }
+}

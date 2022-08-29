@@ -1,6 +1,6 @@
 import CoffeeImg from '../assets/Imagem.png'
 
-import './homeStyles.scss';
+import './home.scss';
 import { Coffee, Package, ShoppingCart, Timer } from "phosphor-react";
 import { CoffeeCard } from "../components/CoffeeCard";
 import { CartContext, coffees } from "../context/useCart";
@@ -48,7 +48,7 @@ export function Home() {
                 </div>
                 
                 <div className="item" >
-                  <div className="icon"style={{background: '#8047F8'}}>
+                  <div className="icon" style={{background: '#8047F8'}}>
                     <Coffee size={16} weight="fill" color="#FFF" />
                   </div>
                   <p>O café chega fresquinho até você</p>
