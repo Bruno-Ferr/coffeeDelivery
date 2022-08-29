@@ -1,11 +1,31 @@
 
 import { Bank, CreditCard, CurrencyDollar, MapPinLine, Minus, Money, Plus, Trash } from 'phosphor-react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { CartContext } from '../context/useCart';
 import './purchase.scss';
 
 export function Purchase() {
-  const { cart } = useContext(CartContext)
+  const { cart, handleAddToCart, handleRemoveFromCart, totalPrice, updateTotalPrice, handleRemoveAllFromCart } = useContext(CartContext)
+  const frete = 5.20
+  
+  useEffect(() => {
+    if(cart !== undefined ) {
+      updateTotalPrice()
+    }
+  }, [cart])
+
+  function handleAddCoffee(id: number) {
+    handleAddToCart(id)
+  }
+
+  function handleSubCoffee(id: number) {
+    handleRemoveFromCart(id)
+
+  }
+
+  function handleRemoveProduct(id: number) {
+    handleRemoveAllFromCart(id)
+  }
 
   return (
     <div className="checkout">
@@ -65,21 +85,21 @@ export function Purchase() {
                       <p>{product.title}</p>
                       <div className='coffee-actions'>
                         <div className='counter'>
-                          <button>
+                          <button onClick={() => handleSubCoffee(product.id)}>
                             <Minus size={14} />
                           </button>
                           <p>{product.amount}</p>
-                          <button>
+                          <button onClick={() => handleAddCoffee(product.id)}>
                             <Plus size={14} />
                           </button>
                         </div>
-                        <button className='remove-button'>
+                        <button onClick={() => handleRemoveProduct(product.id)} className='remove-button'>
                           <Trash size={16} /> REMOVER
                         </button>
                       </div>
                     </div>
                   </div>
-                  <h3>R$ {product.price}</h3>
+                  <h3>R$ {product.price * product.amount}</h3>
                 </div>
                 <div className='divider'></div>
               </>
@@ -88,15 +108,15 @@ export function Purchase() {
           <div className='values'>
             <div className='total-price'>
               <p>Total de itens</p>
-              <p>R$ 28,72</p>
+              <p>R$ {totalPrice}</p>
             </div>
             <div className='total-price'>
               <p>Taxa de entrega</p>
-              <p>R$ 5,20</p>
+              <p>R$ {frete}</p>
             </div>
             <div className='total-price'>
               <h2>Total</h2>
-              <h2>R$ 33,92</h2>
+              <h2>R$ {totalPrice + frete}</h2>
             </div>
             <button className='confirm-order'>
               CONFIRMAR PEDIDO

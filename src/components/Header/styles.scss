@@ -29,6 +29,7 @@ header {
 
 
   .cart {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -36,9 +37,27 @@ header {
     border-radius: 8px;
     background: var(--yellow-light);
     cursor: pointer;
+
+    .items-counter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: bold;
+      background: var(--yellow-dark);
+      color: var(--white);
+      text-decoration: none;
+      width: 18px;
+      height: 18px;
+      position: absolute;
+      top: -7px;
+      right: -7px;
+    }
   }
 
   .cart svg {
     color: var(--yellow-dark)
   }
 }
+

@@ -20,22 +20,16 @@ interface ICoffeeCardProps {
 }
 
 export function CoffeeCard( { coffee }: ICoffeeCardProps) {
-  const [counter, setCounter] = useState(0)
-  const { handleAddToCart, handleRemoveFromCart, coffees} = useContext(CartContext)
+  const { handleAddToCart, handleRemoveFromCart, cart } = useContext(CartContext)
+  const [ product ] = cart.filter(product => coffee.id === product.id)
 
   function handleAddCoffee(id: number) {
     handleAddToCart(id)
-    
-    const [ coffee ] = coffees.filter(product => product.id === id)
-    if (coffee.stock > counter) {
-      setCounter(counter + 1)
-    }
   }
 
   function handleSubCoffee(id: number) {
-    if(counter !== 0) {
+    if(product.amount !== 0) {
       handleRemoveFromCart(id)
-      setCounter(counter - 1)
     }
   }
 
@@ -56,7 +50,7 @@ export function CoffeeCard( { coffee }: ICoffeeCardProps) {
             <button onClick={() => handleSubCoffee(coffee.id)}>
               <Minus size={14} />
             </button>
-            <span>{counter}</span>
+            <span>{product !== undefined ? product.amount : 0}</span>
             <button onClick={() => handleAddCoffee(coffee.id)}>
               <Plus size={14} />
             </button>

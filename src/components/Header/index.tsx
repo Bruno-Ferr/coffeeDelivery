@@ -3,8 +3,11 @@ import './styles.scss'
 
 import logo  from '../../assets/Logo.png'
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { CartContext } from "../../context/useCart";
 
 export function Header() {
+  const { cart } = useContext(CartContext)
   return (
     <header>
       <Link to="/">
@@ -17,6 +20,11 @@ export function Header() {
         </div>
         <Link to="/checkout"  className="cart">
           <ShoppingCart size={22}  weight="fill" />
+          {
+            cart.length > 0 && (
+              <div className="items-counter">{cart.length}</div>
+            )
+          }
         </Link>
       </div>
     </header>

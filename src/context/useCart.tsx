@@ -39,6 +39,7 @@ interface ICartContext {
   coffees: CoffeesProps,
   handleAddToCart: (productId: number) => void;
   handleRemoveFromCart: (productId: number) => void;
+  handleRemoveAllFromCart: (productId: number) => void;
   updateTotalPrice: () => void;
   setTotalPrice: (price: number) => void;
 }
@@ -179,21 +180,7 @@ export const coffees:CoffeesProps = [
 export const CartContext = createContext({} as ICartContext)
 
 export function CartContextProvider({ children }: ICartContextProvider) {
-  const [cart, setCart] = useState<CartProps>([{
-    id: 1,
-    url: coffee,
-    title: "Expresso Tradicional",
-    price: 5.91,
-    amount: 1,
-  },
-  {
-    id: 2,
-    url: ImageCoffee1,
-    title: "Latte",
-    price: 2.92,
-    amount: 3,
-  },
-])
+  const [cart, setCart] = useState<CartProps>([])
   const [totalPrice, setTotalPrice] = useState(0)
 
   function handleAddToCart(productId: number) {
@@ -211,6 +198,7 @@ export function CartContextProvider({ children }: ICartContextProvider) {
       }
 
       setCart([...cart, newProduct])
+      updateTotalPrice()
     } else {
       const [{ stock }] = coffees.filter(coffee => coffee.id === productId)
 
@@ -221,6 +209,7 @@ export function CartContextProvider({ children }: ICartContextProvider) {
         }: product)
         
         setCart(updateCart)
+        updateTotalPrice()
       }
     }
   }
@@ -238,24 +227,36 @@ export function CartContextProvider({ children }: ICartContextProvider) {
         }: product)
 
         setCart(updateCart)
+        updateTotalPrice()
       } else {
         const removeProduct = cart.filter(product => product.id !== productId)
 
         setCart(removeProduct)
+        updateTotalPrice()
       }
     }
   }
+
+  function handleRemoveAllFromCart(productId: number) {
+    const productAlreadyInCart = cart.find(product => product.id === productId)
+
+    if(productAlreadyInCart) {
+      const removeProduct = cart.filter(product => product.id !== productId)
+
+      setCart(removeProduct)
+      updateTotalPrice()
+    }
+  }
+
  
   function updateTotalPrice() {
     const price = cart.map(product => product.amount * product.price).reduce((prev, curr) => prev + curr, 0)
 
-    console.log(price)
-
-    setTotalPrice(() => { return price })
+    setTotalPrice(price)
   }
 
   return (
-    <CartContext.Provider value={{ coffees, cart, totalPrice, handleAddToCart, handleRemoveFromCart, setTotalPrice, updateTotalPrice }}>
+    <CartContext.Provider value={{ coffees, cart, totalPrice, handleAddToCart, handleRemoveFromCart, handleRemoveAllFromCart, setTotalPrice, updateTotalPrice }}>
       {children}
     </CartContext.Provider>
   )
